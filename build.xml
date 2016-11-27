@@ -53,7 +53,7 @@
 
 	<!-- PART 2: General properties definitions -->
 	<property name="build.dir" value="build" />
-	<property name="src.dir" value="Examples/src" />
+	<property name="src.dir" value="src" />
 	<property name="lib.dir" value="WebContent/WEB-INF/lib" />
 	<property name="web.dir" value="." />
 
@@ -132,5 +132,17 @@
 	    	toDir="${apache.dir}/webapps"
 	        overwrite="yes">  
 	    </copy>
-	</target>	
+	</target>
+	
+	<target name="execute.client" depends="clean, compile">
+		<echo message="Executing Client" />
+		<java classname="client.TClient" classpath="${build.dir}">
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar" />
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+	</target>
 </project>

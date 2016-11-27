@@ -65,16 +65,16 @@ public class PersonCollectionResource {
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_XML)
-    @Consumes(MediaType.APPLICATION_XML)
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Person newPerson(Person person) throws IOException {
         System.out.println("Creating new person...");            
         return Person.savePerson(person);
     }
     
     @PUT
-    @Produces(MediaType.APPLICATION_XML)
-    @Consumes(MediaType.APPLICATION_XML)
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Person modifyPerson(Person person) throws IOException {
         System.out.println("Modify person...");            
         return Person.savePerson(person);

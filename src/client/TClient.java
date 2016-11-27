@@ -79,7 +79,7 @@ public class TClient {
 		WebTarget resourceWebTarget = service.path("person");
 		
 		String json_payload = "{\"name\":\"Elso\",\"lastname\":\"Probam212\",\"username\":\"userneveitt\",\"birthdate\":\"1945-01-01\",\"email\":\"teszt@teszt.hu\"}";
-		Response r = resourceWebTarget.request().accept(mediaType).get(Response.class);
+		Response r = resourceWebTarget.request().accept(mediaType).post(Entity.entity(json_payload, mediaType), Response.class);
 		
 		if(r.getStatus() == 200) {
 			String output = r.readEntity(String.class);

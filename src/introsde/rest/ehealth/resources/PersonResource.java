@@ -107,16 +107,17 @@ public class PersonResource {
             throw new RuntimeException("Delete: Person with " + id
                     + " not found");
         Person.removePerson(c);
+        System.out.println("--> Person with id " + id + " has been deleted.");
     }
 
     public Person getPersonById(int personId) {
-        System.out.println("Reading person from DB with id: "+personId);
+        System.out.println("--> Reading person from DB with id: " + personId);
 
         // this will work within a Java EE container, where not DAO will be needed
         //Person person = entityManager.find(Person.class, personId); 
 
         Person person = Person.getPersonById(personId);
-        System.out.println("Person: "+person.toString());
+        //System.out.println("Person: "+person.toString());
         return person;
     }
 }

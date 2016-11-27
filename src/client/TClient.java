@@ -70,23 +70,50 @@ public class TClient {
 		}
 	}
 	
-	// done -> yes
+	// done -> nope
 	/**
 	 * PUT /person/{id} should update the personal information of the person identified by {id} (e.g., only the person's information, not the measures of the health profile)
+	 * 
+	 * Comment: since we need to use the PUT method we need to fetch the person data before,
+	 * since put overrides the whole person if we do not send all the data together
+	 * 
+	 * @throws Exception 
 	 */
-	public void Request3() {
+	public void Request3() throws Exception {
 		System.out.println("-- Executing Request #3. PUT update person with ID #");
-		WebTarget resourceWebTarget = service.path("person");
+		String id = "258";
+		WebTarget resourceWebTarget = service.path("person/" + id);
 		
-		String json_payload = "{\"name\":\"Elso\",\"lastname\":\"Probam212\",\"username\":\"userneveitt\",\"birthdate\":\"1945-01-01\",\"email\":\"teszt@teszt.hu\"}";
-		Response r = resourceWebTarget.request().accept(mediaType).post(Entity.entity(json_payload, mediaType), Response.class);
+		// Get the user data
+		Response r1 = resourceWebTarget.request().accept(mediaType).get(Response.class);
 		
-		if(r.getStatus() == 200) {
-			String output = r.readEntity(String.class);
+		JSONObject payload = new JSONObject();
+		if(r1.getStatus() == 200) {
+			String output = r1.readEntity(String.class);
+			payload = new JSONObject(output);
+			
+			System.out.println(output);
+			System.out.println("-- OK -- User fetched successfully.");
+		} else {
+			System.out.println(r1.getStatus());
+			throw new Exception("No person with id " + id + " found.");
+		}
+		
+		resourceWebTarget = service.path("person");
+		// Send the new user data		
+		payload.put("username", "modositottam");
+		//payload.put("birthdate", "1990-01-01 00:00:00");
+		payload.remove("lifeStatus");
+		System.out.println(payload.toString());
+		Response r2 = resourceWebTarget.request().accept(mediaType).put(Entity.entity(payload.toString(), mediaType), Response.class);
+		
+		// Check the HTTP result, return codes 200 and 201 means OK
+		if(r2.getStatus() == 200 || r2.getStatus() == 201) {
+			String output = r2.readEntity(String.class);
 			System.out.println(output);
 			System.out.println("-- OK -- User modified successfully.");
 		} else {
-			System.out.println(r.getStatus());
+			System.out.println(r2.getStatus());
 		}
 	}
 	
@@ -258,14 +285,14 @@ public class TClient {
 		}
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
     {
     	System.out.println("Client is called");
     	TClient tc = new TClient();
     	tc.Request1();
     	tc.Request2();
     	tc.Request3();
-    	tc.Request4();
+    	//tc.Request4();
     	//tc.Request5();
     }
 }

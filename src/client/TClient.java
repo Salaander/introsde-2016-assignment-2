@@ -81,7 +81,7 @@ public class TClient {
 	 */
 	public void Request3() throws Exception {
 		System.out.println("-- Executing Request #3. PUT update person with ID #");
-		String id = "401";
+		String id = user_created;
 		WebTarget resourceWebTarget = service.path("person/" + id);
 		
 		// Get the user data
@@ -150,7 +150,7 @@ public class TClient {
 		WebTarget resourceWebTarget = service.path("person/" + user_created);
 		Response r = resourceWebTarget.request().accept(mediaType).delete(Response.class);
 		
-		if(r.getStatus() == 200) {
+		if(r.getStatus() == 204) {
 			String output = r.readEntity(String.class);
 			System.out.println(output);
 			System.out.println("-- OK -- User deleted successfully.");
@@ -289,10 +289,10 @@ public class TClient {
     {
     	System.out.println("Client is called");
     	TClient tc = new TClient();
-    	tc.Request1();
-    	tc.Request2();
-    	tc.Request3();
-    	//tc.Request4();
-    	//tc.Request5();
+    	tc.Request1(); // fetch all people
+    	tc.Request2(); // fetch specified person
+    	tc.Request4(); // create a test person
+    	tc.Request3(); // modify the created person
+    	tc.Request5(); // delete the created person
     }
 }

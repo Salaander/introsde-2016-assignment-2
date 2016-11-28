@@ -33,11 +33,9 @@ public class PersonTest {
         int personOriginalCount = list.size();
 
         Person p = new Person();
-        p.setName("Pinco");
+        p.setFirstname("Pinco");
         p.setLastname("Pallino");
-        Calendar c = Calendar.getInstance();
-        c.set(1984, 6, 21);
-        p.setBirthdate(c.getTime());
+        p.setBirthdate("1945-01-01 00:00:00");
 
         System.out.println("--> TEST: addPersonWithDao ==> persisting person");
         Person.savePerson(p);

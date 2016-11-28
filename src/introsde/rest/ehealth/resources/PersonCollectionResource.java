@@ -1,5 +1,4 @@
 package introsde.rest.ehealth.resources;
-import introsde.rest.ehealth.model.Person;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +21,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
+
+import introsde.rest.ehealth.model.Person;
 
 @Stateless // will work only inside a Java EE application
 @LocalBean // will work only inside a Java EE application
@@ -77,7 +78,7 @@ public class PersonCollectionResource {
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Person modifyPerson(Person person) throws IOException {
         System.out.println("Modify person...");            
-        return Person.savePerson(person);
+        return Person.updatePerson(person);
     }
     
 

@@ -81,7 +81,7 @@ public class TClient {
 	 */
 	public void Request3() throws Exception {
 		System.out.println("-- Executing Request #3. PUT update person with ID #");
-		String id = "258";
+		String id = "401";
 		WebTarget resourceWebTarget = service.path("person/" + id);
 		
 		// Get the user data
@@ -125,7 +125,7 @@ public class TClient {
 		System.out.println("-- Executing Request #4. POST add new person to the DB");
 		WebTarget resourceWebTarget = service.path("person");
 		
-		String json_payload = "{\"name\":\"Elso\",\"lastname\":\"Probam212\",\"username\":\"userneveitt\",\"birthdate\":\"1945-01-01\",\"email\":\"teszt@teszt.hu\"}";
+		String json_payload = "{\"firstname\":\"Elso\",\"lastname\":\"Probam212\",\"username\":\"userneveitt\",\"birthdate\":\"1982-06-08 18:00:00\",\"email\":\"teszt@teszt.hu\"}";
 		Response r = resourceWebTarget.request().accept(mediaType).post(Entity.entity(json_payload, mediaType), Response.class);
 		
 		if(r.getStatus() == 200) {

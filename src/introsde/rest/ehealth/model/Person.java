@@ -40,15 +40,14 @@ public class Person implements Serializable {
 	@Column(name="lastname")
 	private String lastname;
 
-	@Column(name="name")
-	private String name;
+	@Column(name="firstname")
+	private String firstname;
 
 	@Column(name="username")
 	private String username;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="birthdate")
-	private Date birthdate;
+	private String birthdate;
 	
 	@Column(name="email")
 	private String email;
@@ -60,11 +59,11 @@ public class Person implements Serializable {
 	public Person() {
 	}
 	
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return this.birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -92,12 +91,12 @@ public class Person implements Serializable {
 		this.lastname = lastname;
 	}
 
-	public String getName() {
-		return this.name;
+	public String getFirstname() {
+		return this.firstname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstname(String name) {
+		this.firstname = name;
 	}
 
 	public String getUsername() {

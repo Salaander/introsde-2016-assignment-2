@@ -70,7 +70,7 @@ public class TClient {
 		}
 	}
 	
-	// done -> nope
+	// done -> yes
 	/**
 	 * PUT /person/{id} should update the personal information of the person identified by {id} (e.g., only the person's information, not the measures of the health profile)
 	 * 
@@ -80,9 +80,8 @@ public class TClient {
 	 * @throws Exception 
 	 */
 	public void Request3() throws Exception {
-		System.out.println("-- Executing Request #3. PUT update person with ID #");
-		String id = user_created;
-		WebTarget resourceWebTarget = service.path("person/" + id);
+		System.out.println("-- Executing Request #3. PUT update person with ID " + user_created);
+		WebTarget resourceWebTarget = service.path("person/" + user_created);
 		
 		// Get the user data
 		Response r1 = resourceWebTarget.request().accept(mediaType).get(Response.class);
@@ -96,7 +95,7 @@ public class TClient {
 			System.out.println("-- OK -- User fetched successfully.");
 		} else {
 			System.out.println(r1.getStatus());
-			throw new Exception("No person with id " + id + " found.");
+			throw new Exception("No person with id " + user_created + " found.");
 		}
 		
 		resourceWebTarget = service.path("person");
@@ -135,7 +134,7 @@ public class TClient {
 				user_created = String.valueOf(jsonObj.getInt("idPerson"));
 			}
 			System.out.println(output);
-			System.out.println("-- OK -- User created successfully.");
+			System.out.println("-- OK -- User created successfully with ID " + user_created);
 		} else {
 			System.out.println(r.getStatus());
 		}
@@ -146,7 +145,7 @@ public class TClient {
 	 * DELETE /person/{id} should delete the person identified by {id} from the system
 	 */
 	public void Request5() {
-		System.out.println("-- Executing Request #5. DELETE delete person with ID #");
+		System.out.println("-- Executing Request #5. DELETE delete person with ID " + user_created);
 		WebTarget resourceWebTarget = service.path("person/" + user_created);
 		Response r = resourceWebTarget.request().accept(mediaType).delete(Response.class);
 		
@@ -159,7 +158,7 @@ public class TClient {
 		}
 	}
 	
-	// done -> yes
+	// done -> nope
 	/**
 	 * GET /person/{id}/{measureType} should return the list of values (the history) of {measureType} (e.g. weight) for person identified by {id}
 	 */
@@ -213,19 +212,19 @@ public class TClient {
 		}
 	}
 	
-	// todo: implement
+	// done -> yes
 	/**
 	 * GET /measureTypes should return the list of measures your model supports in the following formats:
 	 */
 	public void Request9() {
-		System.out.println("-- Executing Request #1. GET all people");
-		WebTarget resourceWebTarget = service.path("person");
+		System.out.println("-- Executing Request #9. GET measureTypes");
+		WebTarget resourceWebTarget = service.path("measureTypes");
 		Response r = resourceWebTarget.request().accept(mediaType).get(Response.class);
 		
 		if(r.getStatus() == 200) {
 			String output = r.readEntity(String.class);
 			System.out.println(output);
-			System.out.println("-- OK -- Users fetched successfully.");
+			System.out.println("-- OK -- measureTypes fetched successfully.");
 		} else {
 			System.out.println(r.getStatus());
 		}
@@ -294,5 +293,15 @@ public class TClient {
     	tc.Request4(); // create a test person
     	tc.Request3(); // modify the created person
     	tc.Request5(); // delete the created person
+    	//tc.Request6();
+    	//tc.Request7();
+    	//tc.Request8();
+    	tc.Request9(); // get measureTypes
+    	
+    	// Client tasks
+    	// Implement a client that can send all of these requests and print the responses.
+    	// Implement ANT target (ant execute.client), which does all the calls sequentially and save the requests/responses information into a file
+    	// (e.g. client-server-json.log and client-server-xml.log, push this file to a Github repository).
+
     }
 }

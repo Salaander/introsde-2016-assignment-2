@@ -1,7 +1,7 @@
 package introsde.rest.ehealth.model;
 
 import introsde.rest.ehealth.dao.LifeCoachDao;
-import introsde.rest.ehealth.model.MeasureDefaultRange;
+import introsde.rest.ehealth.model.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -78,6 +78,13 @@ public class MeasureDefinition implements Serializable {
 	public static MeasureDefinition getMeasureDefinitionById(int personId) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		MeasureDefinition p = em.find(MeasureDefinition.class, personId);
+		LifeCoachDao.instance.closeConnections(em);
+		return p;
+	}
+	
+	public static MeasureDefinition getMeasureDefinitionByName(String measureName) {
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		MeasureDefinition p = em.createNamedQuery("MeasureDefinition.getMeasureDefinitionByName", MeasureDefinition.class).setParameter(1, measureName).getSingleResult();
 		LifeCoachDao.instance.closeConnections(em);
 		return p;
 	}

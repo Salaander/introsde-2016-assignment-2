@@ -22,6 +22,9 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
@@ -31,6 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name="HealthMeasureHistory")
 @NamedQuery(name="HealthMeasureHistory.findAll", query="SELECT h FROM HealthMeasureHistory h")
+//@XmlType(propOrder={"idMeasureHistory", "value" , "timestamp"})
+//@JsonPropertyOrder({ "mid", "value", "created"})
+//@XmlRootElement(name="measure")
 @XmlRootElement
 public class HealthMeasureHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -51,7 +57,7 @@ public class HealthMeasureHistory implements Serializable {
 	private String value;
 
 	@ManyToOne
-	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef")
+	@JoinColumn(name = "idMeasureDefinition", referencedColumnName = "idMeasureDef")
 	private MeasureDefinition measureDefinition;
 
 	// notice that we haven't included a reference to the history in Person

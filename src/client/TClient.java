@@ -21,10 +21,11 @@ public class TClient {
 	private String mediaType;
 	
 	private String user_created;
+	private String url;
 	
 	private TClient() {
 		mediaType = MediaType.APPLICATION_JSON;
-		String url = "http://localhost:5900/sdelab";
+		url = "http://localhost:5900/sdelab";
 		clientConfig = new ClientConfig();
 		client = ClientBuilder.newClient(clientConfig);
 		service = client.target(getBaseURI(url));
@@ -158,7 +159,7 @@ public class TClient {
 		}
 	}
 	
-	// done -> nope
+	// done -> yes
 	/**
 	 * GET /person/{id}/{measureType} should return the list of values (the history) of {measureType} (e.g. weight) for person identified by {id}
 	 */
@@ -176,7 +177,7 @@ public class TClient {
 		}
 	}
 	
-	// todo: implement
+	// done -> yes
 	/**
 	 * GET /person/{id}/{measureType}/{mid} should return the value of {measureType} (e.g. weight) identified by {mid} for person identified by {id}
 	 */
@@ -194,7 +195,7 @@ public class TClient {
 		}
 	}
 	
-	// todo: implement
+	// done -> yes
 	/**
 	 * POST /person/{id}/{measureType} should save a new value for the {measureType} (e.g. weight) of person identified by {id} and archive the old value in the history
 	 */
@@ -284,24 +285,51 @@ public class TClient {
 		}
 	}
 	
+	public void ResponseTemplate(Integer num, String method, String url, String accept, String content, String result, String status, String body) {
+		System.out.println("Request #"+num+": "+method+" "+this.url+" Accept: "+accept+" Content-type: "+content+" ");
+		System.out.println("=> Result: "+result);
+		System.out.println("=> HTTP Status: "+status+"");
+		System.out.println(body);
+	}
+	
+	public void Client1() {
+		ResponseTemplate(1, "GET", "", "JSON", "", "", "", "");
+	}
+	
 	public static void main(String[] args) throws Exception
     {
     	System.out.println("Client is called");
     	TClient tc = new TClient();
-    	tc.Request1(); // fetch all people
-    	tc.Request2(); // fetch specified person
-    	tc.Request4(); // create a test person
-    	tc.Request3(); // modify the created person
-    	tc.Request5(); // delete the created person
-    	//tc.Request6();
-    	//tc.Request7();
-    	//tc.Request8();
-    	tc.Request9(); // get measureTypes
+//    	tc.Request1(); // fetch all people
+//    	tc.Request2(); // fetch specified person
+//    	tc.Request4(); // create a test person
+//    	tc.Request3(); // modify the created person
+//    	tc.Request5(); // delete the created person
+//    	//tc.Request6();
+//    	//tc.Request7();
+//    	//tc.Request8();
+//    	tc.Request9(); // get measureTypes
     	
     	// Client tasks
     	// Implement a client that can send all of these requests and print the responses.
     	// Implement ANT target (ant execute.client), which does all the calls sequentially and save the requests/responses information into a file
     	// (e.g. client-server-json.log and client-server-xml.log, push this file to a Github repository).
+    	
+    	//print url that you are calling:
+    	System.out.println("URL: http://localhost:5900/sdelab");
+    	
+    	tc.Client1();
+//    	tc.Client2();
+//    	tc.Client3();
+//    	tc.Client4();
+//    	tc.Client5();
+//    	tc.Client6();
+//    	tc.Client7();
+//    	tc.Client8();
+//    	tc.Client9();
+//    	tc.Client10();
+//    	tc.Client11();
+//    	tc.Client12();
 
     }
 }

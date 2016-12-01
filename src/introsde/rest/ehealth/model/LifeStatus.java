@@ -1,7 +1,7 @@
 package introsde.rest.ehealth.model;
 
 import introsde.rest.ehealth.dao.LifeCoachDao;
-import introsde.rest.ehealth.model.MeasureDefinition;
+import introsde.rest.ehealth.model.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+
 import javax.persistence.OneToOne;
 
 /**
@@ -52,6 +54,13 @@ public class LifeStatus implements Serializable {
 	private Person person;
 
 	public LifeStatus() {
+	}
+	
+	// Added a constructor to make it easier to create a LifeStatus object
+	public LifeStatus(Person person, MeasureDefinition md, String value) {
+		this.person = person;
+		this.measureDefinition = md;
+		this.value = value;
 	}
 
 	public int getIdMeasure() {
@@ -96,6 +105,13 @@ public class LifeStatus implements Serializable {
 		LifeStatus p = em.find(LifeStatus.class, lifestatusId);
 		LifeCoachDao.instance.closeConnections(em);
 		return p;
+	}
+	
+	public static LifeStatus getLifeStatusByMeasureDefPerson(MeasureDefinition md, Person p){
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		LifeStatus ls = em.createNamedQuery("LifeStatus.findByMeasureDefPerson", LifeStatus.class).setParameter(1, p).setParameter(2, md).getSingleResult();
+		LifeCoachDao.instance.closeConnections(em);
+		return ls;
 	}
 	
 	public static List<LifeStatus> getAll() {

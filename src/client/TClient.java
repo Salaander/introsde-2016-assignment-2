@@ -467,7 +467,7 @@ public class TClient {
 		
 		String json_payload = "{\"firstname\":\"Elso\",\"lastname\":\"Probam212\",\"username\":\"userneveitt\",\"birthdate\":\"1982-06-08 18:00:00\",\"email\":\"teszt@teszt.hu\"}";
 		//String xml_payload = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><person><firstname>Chuck</firstname><lastname>Norris</lastname><birthdate>1945-01-01</birthdate><healthProfile><weight>78.9</weight><height>172</height></healthProfile><person>";
-		String xml_payload = "<person><firstname>Chuck</firstname><lastname>Norris</lastname><birthdate>1945-01-01</birthdate><healthProfile><weight>78.9</weight><height>172</height></healthProfile><person>";
+		String xml_payload = "<person><firstname>Chuck</firstname><lastname>Norris</lastname><birthdate>1945-01-01</birthdate><healthProfile><weight>78.9</weight><height>172</height></healthProfile></person>";
 
 		Response r = null;
 		if(mediaType == MediaType.APPLICATION_JSON) {
@@ -480,9 +480,11 @@ public class TClient {
 		String output = null;
 		if(r.getStatus() == 200) {
 			output = r.readEntity(String.class);
-			JSONObject jsonObj = new JSONObject(output);
-			if (jsonObj.get("idPerson") != null ){
-				user_created = String.valueOf(jsonObj.getInt("idPerson"));
+			if(mediaType == MediaType.APPLICATION_JSON) {
+				JSONObject jsonObj = new JSONObject(output);
+				if (jsonObj.get("idPerson") != null ){
+					person_to_delete = String.valueOf(jsonObj.getInt("idPerson"));
+				}
 			}
 			result = "OK";
 		} else {
@@ -554,7 +556,7 @@ public class TClient {
 	 * @param args
 	 * @throws Exception
 	 */
-	public void Client7(String mediaType) throws ParserConfigurationException, SAXException, IOException {
+	public void Client7(String mediaType) throws Exception {
 		WebTarget resourceWebTarget = null;
 		Response response = null;
 		String result = "ERROR";
@@ -585,6 +587,33 @@ public class TClient {
 		
 		ResponseTemplate(7, "GET", resourceWebTarget.getUri().toString(), mediaType, mediaType, result, response.getStatus(), print);
 	}
+	
+	/**
+	 * Send R#7 (GET BASE_URL/person/{id}/{measureType}/{mid}) for the stored measure_id and measureType. If the response is 200, result is OK, else is ERROR.
+	 * @param mediaType
+	 * @throws Exception
+	 */
+	public void Client8(String mediaType) throws Exception {
+		WebTarget resourceWebTarget = service.path("measureTypes");
+		Response response = resourceWebTarget.request().accept(mediaType).get(Response.class);
+		
+		String output = "";
+		String result = "ERROR";
+		if(response.getStatus() == 200) {
+			output = response.readEntity(String.class);
+			if(mediaType == MediaType.APPLICATION_XML) {
+
+			} else if(mediaType == MediaType.APPLICATION_JSON){
+
+			}
+		}
+		ResponseTemplate(8, "GET", resourceWebTarget.getUri().toString(), mediaType, mediaType, result, response.getStatus(), output);
+	}
+	
+	/*public void Client9(String mediaType) throws Exception {
+		
+		ResponseTemplate(9, "GET", resourceWebTarget.getUri().toString(), mediaType, mediaType, result, response.getStatus(), output);
+	}*/
 	
 	public static void main(String[] args) throws Exception
     {

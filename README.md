@@ -2,18 +2,13 @@
 
 ## The REST API
 
-The REST API implements all the desired functions by the description of the assignment.
+The REST API implements the desired functions by the description of the assignment.
 
 ## The Client program
 
-I implemented a client to test the REST API and apart from the needed function mention under section 3 I also implemented a function for each operation mention under section 2 to have full test coverage.
+In the client I implemented standalone test function like request1-12 to test each functionality separately.
 
-The client functions:
-
-...
-...
-...
-
+I also implemented the requested client 1-12 functions.
 
 ##  Author
 

@@ -36,8 +36,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @NamedQuery(name="HealthMeasureHistory.findAll", query="SELECT h FROM HealthMeasureHistory h")
 //@XmlType(propOrder={"idMeasureHistory", "value" , "timestamp"})
 //@JsonPropertyOrder({ "mid", "value", "created"})
-//@XmlRootElement(name="measure")
-@XmlRootElement
+@XmlRootElement(name="measure")
+//@XmlRootElement
 public class HealthMeasureHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 

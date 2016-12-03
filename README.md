@@ -6,9 +6,9 @@ The REST API implements the desired functions by the description of the assignme
 
 ## The Client program
 
-In the client I implemented standalone test function like request1-12 to test each functionality separately.
+In the client I implemented standalone test function like request1-10 to test each functionality separately.
 
-I also implemented the requested client 1-12 functions.
+I also implemented the requested client 1-10 functions.
 
 ##  Author
 

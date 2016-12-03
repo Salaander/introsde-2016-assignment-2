@@ -43,6 +43,7 @@ public class TClient {
 	private String person_to_delete;
 	private ArrayList<String> measure_types = new ArrayList<>();
 	private String measure_type;
+	private String measure_id;
 	
 	private TClient() {
 		mediaType = MediaType.APPLICATION_JSON;
@@ -594,13 +595,14 @@ public class TClient {
 	 * @throws Exception
 	 */
 	public void Client8(String mediaType) throws Exception {
-		WebTarget resourceWebTarget = service.path("measureTypes");
+		WebTarget resourceWebTarget = service.path("person/"+first_person_id+"/"+measure_types.get(0)+"/1");
 		Response response = resourceWebTarget.request().accept(mediaType).get(Response.class);
 		
 		String output = "";
 		String result = "ERROR";
 		if(response.getStatus() == 200) {
 			output = response.readEntity(String.class);
+			result = "OK";
 			if(mediaType == MediaType.APPLICATION_XML) {
 
 			} else if(mediaType == MediaType.APPLICATION_JSON){
@@ -610,10 +612,39 @@ public class TClient {
 		ResponseTemplate(8, "GET", resourceWebTarget.getUri().toString(), mediaType, mediaType, result, response.getStatus(), output);
 	}
 	
-	/*public void Client9(String mediaType) throws Exception {
+	/**
+	 * Choose a measureType from measure_types and send the request R#6 (GET BASE_URL/person/{first_person_id}/{measureType}) and save count value (e.g. 5 measurements).
+	 * Then send R#8 (POST BASE_URL/person/{first_person_id}/{measureType}) with the measurement specified below.
+	 * <measure>
+     *     <value>72</value>
+     *     <created>2011-12-09</created>
+     * </measure>
+	 * Follow up with another R#6 as the first to check the new count value.
+	 * If it is 1 measure more - print OK, else print ERROR.
+	 * Remember, first with JSON and then with XML as content-types
+	 * @param args
+	 * @throws Exception
+	 */
+	public void Client9(String mediaType) throws Exception {
+		WebTarget resourceWebTarget = service.path("measureTypes");
+		Response response = resourceWebTarget.request().accept(mediaType).get(Response.class);
 		
+		String json_payload = "{\"value\": 72,\"created\": \"2011-12-09\"}";
+		String xml_payload = "<measure><value>72</value><created>2011-12-09</created></measure>";
+		
+		String output = "";	
+		String result = "ERROR";
+		if(response.getStatus() == 200) {
+			output = response.readEntity(String.class);
+			result = "OK";
+			if(mediaType == MediaType.APPLICATION_XML) {
+
+			} else if(mediaType == MediaType.APPLICATION_JSON){
+
+			}
+		}
 		ResponseTemplate(9, "GET", resourceWebTarget.getUri().toString(), mediaType, mediaType, result, response.getStatus(), output);
-	}*/
+	}
 	
 	public static void main(String[] args) throws Exception
     {
@@ -650,7 +681,8 @@ public class TClient {
     	tc.Client6(MediaType.APPLICATION_XML);
     	tc.Client7(MediaType.APPLICATION_JSON);
     	tc.Client7(MediaType.APPLICATION_XML);
-//    	tc.Client8();
+    	tc.Client8(MediaType.APPLICATION_JSON);
+    	tc.Client8(MediaType.APPLICATION_XML);
 //    	tc.Client9();
 //    	tc.Client10();
 //    	tc.Client11();

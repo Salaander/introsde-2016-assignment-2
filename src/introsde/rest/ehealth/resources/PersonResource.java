@@ -65,6 +65,7 @@ public class PersonResource {
     // for the browser
     @GET
     @Produces(MediaType.TEXT_XML)
+    //@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Person getPersonHTML() {
         Person person = this.getPersonById(id);
         if (person == null)
@@ -135,7 +136,6 @@ public class PersonResource {
     @GET
     @Path("{measureType}")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public List<HealthMeasureHistory> getPersonHistory(@PathParam("measureType") String measureName) {
     	System.out.println("--> GET Person (ID: " + id + ");  measuref for MeasuryTypeName = " + measureName + ";");
     	List<HealthMeasureHistory> allHealthMeasureHistory = HealthMeasureHistory.getAll();

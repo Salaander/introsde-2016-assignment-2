@@ -6,8 +6,13 @@ import introsde.rest.ehealth.model.LifeStatus;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +26,8 @@ import java.util.List;
 @Table(name="\"Person\"")
 @NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
 @XmlRootElement
+//@XmlType(propOrder={"idPerson", "firstname", "lastname" , "birthdate", "email", "lifeStatus"})
+@JsonPropertyOrder({ "idPerson", "firstname", "lastname" , "birthdate", "email", "lifeStatus"})
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +41,7 @@ public class Person implements Serializable {
 //	@TableGenerator(name="sqlite_person", table="sqlite_sequence",
 //	    pkColumnName="name", valueColumnName="seq",
 //	    pkColumnValue="Person")
-//	@Column(name="idPerson")
+	@Column(name="idPerson")
 	private int idPerson;
 
 	@Column(name="lastname")
@@ -109,7 +116,10 @@ public class Person implements Serializable {
 
 	// the XmlElementWrapper defines the name of node in which the list of LifeStatus elements
 	// will be inserted
-	@XmlElementWrapper(name = "Measurements")
+	//@XmlElementWrapper(name = "Measurements")
+	@XmlElementWrapper(name = "healthprofile")
+    @XmlElement(name="measureType")
+    @JsonProperty("healthprofile")
 	public List<LifeStatus> getLifeStatus() {
 	    return lifeStatus;
 	}

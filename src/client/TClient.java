@@ -47,7 +47,7 @@ public class TClient {
 	
 	private TClient() {
 		mediaType = MediaType.APPLICATION_JSON;
-		url = "http://localhost:9010/sdelab";
+		url = "https://sde-assignment2.herokuapp.com/sdelab/person";
 		clientConfig = new ClientConfig();
 		client = ClientBuilder.newClient(clientConfig);
 		service = client.target(getBaseURI(url));

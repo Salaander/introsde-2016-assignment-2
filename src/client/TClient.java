@@ -47,7 +47,7 @@ public class TClient {
 	
 	private TClient() {
 		mediaType = MediaType.APPLICATION_JSON;
-		url = "http://localhost:5900/sdelab";
+		url = "http://localhost:9010/sdelab";
 		clientConfig = new ClientConfig();
 		client = ClientBuilder.newClient(clientConfig);
 		service = client.target(getBaseURI(url));

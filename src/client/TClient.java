@@ -47,7 +47,7 @@ public class TClient {
 	
 	private TClient() {
 		mediaType = MediaType.APPLICATION_JSON;
-		url = "https://sde-assignment2.herokuapp.com/sdelab/person";
+		url = "https://sde-assignment2.herokuapp.com/sdelab";
 		clientConfig = new ClientConfig();
 		client = ClientBuilder.newClient(clientConfig);
 		service = client.target(getBaseURI(url));
@@ -666,7 +666,7 @@ public class TClient {
     	// (e.g. client-server-json.log and client-server-xml.log, push this file to a Github repository).
     	
     	//print url that you are calling:
-    	System.out.println("URL: http://localhost:5900/sdelab");
+    	System.out.println("URL: https://sde-assignment2.herokuapp.com/sdelab");
     	
     	tc.Client1(MediaType.APPLICATION_JSON);
     	tc.Client1(MediaType.APPLICATION_XML);
